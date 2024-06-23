@@ -24,10 +24,11 @@ def send_email(title, message, email, *args, **kwargs):
         msg['To'] = email_list
         msg.set_content(message)
         server.send_message(msg)
-        server.quit()
-        return f'{title}: {msg.subject}, Message:{msg.body}'
+        return f'{title}: {msg.get(name="Subject")}, Message:{msg.get_content()}'
     except Exception as e:
         raise e
+    finally:
+        server.quit()
 
 
 def get_import(partner, url):
